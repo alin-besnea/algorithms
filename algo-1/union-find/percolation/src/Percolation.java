@@ -24,6 +24,9 @@ public class Percolation
 	 */
 	public void open(int i, int j)
 	{
+		validateIndex(i);
+		validateIndex(j);
+		
 		int openValueIndex = convertToArrayIndex(i, j);
 		_openSites[openValueIndex] = true;
 		
@@ -39,6 +42,9 @@ public class Percolation
 	 */
 	public boolean isOpen(int i, int j)
 	{
+		validateIndex(i);
+		validateIndex(j);
+		
 		int arrayIndex = convertToArrayIndex(i, j);
 		return _openSites[arrayIndex];
 	}
@@ -48,6 +54,9 @@ public class Percolation
 	 */
 	public boolean isFull(int i, int j)
 	{
+		validateIndex(i);
+		validateIndex(j);
+		
 		int arrayIndex = convertToArrayIndex(i, j);
 		return isOpen(i, j) && _unionQuickFind.connected(_upperVirtualIndex, arrayIndex);
 	}
@@ -101,6 +110,14 @@ public class Percolation
 		for (int i = 1; i < _lowerVirtualIndex; i++)
 		{
 			_openSites[i] = false;
+		}
+	}
+	
+	private void validateIndex(int index)
+	{
+		if (index < 1 || index > _gridLength)
+		{
+			throw new IndexOutOfBoundsException();
 		}
 	}
 	
